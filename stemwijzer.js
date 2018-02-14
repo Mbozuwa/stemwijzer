@@ -7,7 +7,7 @@ var subjects =
 	parties: [
 		{name: "party1", position: "pro", explanation: "explains why pro"},
 		{name: "party2", position: "ambivalent", explanation: "explains why not pro and not contra"},
-		{name: "party3", position: "contra", explanation: "explains why contra"}
+		{name: "party3", position: "contra", explanation: "explains why contra" }
 	]
 }
 */
@@ -209,10 +209,13 @@ var subjects =
 	]
 },
 {
-	title: "titel resultaat",
-	statement: "statement resultaat",
-}
-];
+	title: "doorgaan resultaat",
+	statement: "statement doorgaan resultaat",
+// },
+// {
+// 	title: "eind resultaat",
+// 	statement: "statement eind resultaat",
+}];
 
 var parties = [
 	{name: "VVD", secular: true, size: 33, long: "Volkspartij voor Vrijheid en Democratie"},
@@ -240,7 +243,7 @@ var parties = [
 
 choices = [];
 
-points = [
+results = [
 	{name: "VVD", point: 0},
 	{name: "CDA", point: 0},
 	{name: "PVV", point: 0},
@@ -273,13 +276,12 @@ var eens = document.getElementById('approve');
 var none = document.getElementById('none');
 var oneens = document.getElementById('disapprove');
 var check = document.getElementById('check');
+var showResults = document.getElementById('showResults');
 
 // console.dir(subject);
 
 title.innerHTML = subjects[nr].title;
 subject.innerHTML = subjects[nr].statement;
-// nr++;
-// subject.innerHTML = subjects[nr].title;
 
 var next = function(event){
 	nr++;
@@ -337,9 +339,39 @@ var disapprove = function(event){
 	console.log(choices);
 		if (nr == 7) {
 			title.innerHTML = "Eind resultaat";
-			subject.innerHTML = "dit is het eind resultaat."
+			subject.innerHTML = "dit is het eind resultaat.";
 		}
 }
+
+function showResults() {
+	choices.forEach(function(choice, index) {
+		console.log(subjects[index]);
+		subjects[index].parties.forEach(function(party, index) {
+			results.forEach(function(result) {
+				if (party.name == result.name) {
+					console.log(party);
+					console.log(party.position);
+					if (party.position == choice) {
+						console.log(party.position);
+						console.log(choice);
+						result.point++;
+					}
+				}
+			});
+		});
+	});
+
+	console.log(results);
+}
+
+
+// var endResult = function(event){
+// 	if (nr == 6){
+// 		subjects.forEach(function(entry){
+// 			console.log(entry);
+// 		});
+// 	}	
+// }
 
 skip.onclick = next;
 back.onclick = prev;
