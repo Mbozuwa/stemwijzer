@@ -2,25 +2,23 @@
 <html>
 <head>
 	<title> StemWijzer Tweede Kamer 2017</title>
-	<link rel="stylesheet" type="text/css" href="layout.css">
-	
-	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 <body>
-	<main>
-		<button id="back" class="back" onclick="back"></button>
+	<main id="main">
+		<button style="margin-left: 20px; margin-top: 20px;" id="back" >back</button>
 	
 		<nav>
 			<h1 id="title"></h1>
 			<p id="subject"></p>
-		</nav>	
-		<div class="buttons">
-			<button id="approve" onclick="approve">Eens</button>
-			<button id="none" onclick="none">Geen van beide</button>
-			<button id="disapprove" onclick="disapprove">Oneens</button>
-			<button id="next" onclick="next">Sla deze vraag over</button>
-		</div>
-	</main>
-	<script src="stemwijzer.js"></script>
+			<p id="parties"></p>
+			<button style="margin-left: 20px;" id="e">Eens</button>
+			<button id="g">Geen van beide</button>
+			<button id="o">Oneens</button>
+			<button id="next">overslaan</button>
+		</nav>
+		</main>
+		<script src="data.js"></script>
 </body>
 </html>

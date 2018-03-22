@@ -7,7 +7,7 @@ var subjects =
 	parties: [
 		{name: "party1", position: "pro", explanation: "explains why pro"},
 		{name: "party2", position: "ambivalent", explanation: "explains why not pro and not contra"},
-		{name: "party3", position: "contra", explanation: "explains why contra" }
+		{name: "party3", position: "contra", explanation: "explains why contra"}
 	]
 }
 */
@@ -209,13 +209,10 @@ var subjects =
 	]
 },
 {
-	title: "doorgaan resultaat",
-	statement: "statement doorgaan resultaat",
-// },
-// {
-// 	title: "eind resultaat",
-// 	statement: "statement eind resultaat",
-}];
+	title: "+1",
+	statement: "Door gaan naar de resultaten",
+}
+];
 
 var parties = [
 	{name: "VVD", secular: true, size: 33, long: "Volkspartij voor Vrijheid en Democratie"},
@@ -237,144 +234,147 @@ var parties = [
 	{name: "De Burger Beweging", secular: true, size: 0},
 	{name: "Piratenpartij", secular: true, size: 0},
 	{name: "Artikel 1", secular: true, size: 0},
-	{name: "Libertarische Partij", secular: true, size: 0
-}
+	{name: "Libertarische Partij", secular: true, size: 0}
 ];
-
-choices = [];
-
-results = [
-	{name: "VVD", point: 0},
-	{name: "CDA", point: 0},
-	{name: "PVV", point: 0},
-	{name: "D66", point: 0},
-	{name: "GroenLinks", point: 0},
-	{name: "SP", point: 0},
-	{name: "PvdA", point: 0},
-	{name: "ChristenUnie", point: 0},
-	{name: "Partij voor de Dieren", point: 0},
-	{name: "SGP", point: 0},
-	{name: "DENK", point: 0},
-	{name: "Forum voor Democratie", point: 0},
-	{name: "Lokaal in de kamer", point: 0},
-	{name: "OndernemersPartij", point: 0},
-	{name: "VNL", point: 0},
-	{name: "Nieuwe Wegen", point: 0},
-	{name: "De Burger Beweging", point: 0},
-	{name: "Piratenpartij", point: 0},
-	{name: "Artikel 1", point: 0},
-	{name: "Libertarische Partij", point: 0}
-];
-
 
 var nr = 0;
+var choices = [];
 
+var punten = [
+	{name: "VVD", points: 0},
+	{name: "CDA", points: 0},
+	{name: "PVV", points: 0},
+	{name: "D66", points: 0},
+	{name: "GroenLinks", points: 0},
+	{name: "SP", points: 0},
+	{name: "PvdA", points: 0},
+	{name: "ChristenUnie", points: 0},
+	{name: "Partij voor de Dieren", points: 0},
+	{name: "SGP", points: 0},
+	{name: "DENK", points: 0},
+	{name: "Forum voor Democratie", points: 0},
+	{name: "Lokaal in de kamer", points: 0},
+	{name: "OndernemersPartij", points: 0},
+	{name: "VNL", points: 0},
+	{name: "Nieuwe Wegen", points: 0},
+	{name: "De Burger Beweging", points: 0},
+	{name: "Piratenpartij", points: 0},
+	{name: "Artikel 1", points: 0},
+	{name: "Libertarische Partij", points: 0}
+];
 var subject = document.getElementById('subject');
 var skip = document.getElementById('next');
 var back = document.getElementById('back');
-var eens = document.getElementById('approve');
-var none = document.getElementById('none');
-var oneens = document.getElementById('disapprove');
-var check = document.getElementById('check');
-var showResults = document.getElementById('showResults');
+var eens = document.getElementById('eens');
+var oneens = document.getElementById('oneens');
+var geen = document.getElementById('geen');
+var parties = document.getElementById('parties');
+
 
 // console.dir(subject);
 
 title.innerHTML = subjects[nr].title;
 subject.innerHTML = subjects[nr].statement;
+// nr++;
+// subject.innerHTML = subjects[nr].title;
 
 var next = function(event){
 	nr++;
-	choices.push();
+	choices.push("skip");
+	console.log(choices);
 	title.innerHTML = subjects[nr].title;
 	subject.innerHTML = subjects[nr].statement;
+	if (nr == 7) {
+		results();
+	}
+}
+var eens = function(event){
+	
+	choices.push("pro");
 	console.log(choices);
-		if (nr == 7) {
-		title.innerHTML = "Eind resultaat";
-		subject.innerHTML = "dit is het eind resultaat."
+	title.innerHTML = subjects[nr].title;
+	subject.innerHTML = subjects[nr].statement;
+	
+    var positions = subjects[nr].parties;
+    for (i = 0; i < positions.length; i++) { 
+   		if (positions[i].position == "pro") {
+   			punten[i].points++
+   			console.log(punten);
+   		}
+	}	
+	nr++;
+	if (nr == 7) {
+		results();
 	}
 }
 
+var geen = function(event){
+	choices.push("ambivalent");
+	console.log(choices);
+	title.innerHTML = subjects[nr].title;
+	subject.innerHTML = subjects[nr].statement;
+	    var positions = subjects[nr].parties;
+    for (i = 0; i < positions.length; i++) { 
+   		if (positions[i].position == "ambivalent") {
+   			punten[i].points++
+   			console.log(punten);
+   		}
+	}	
+	nr++;
+	if (nr == 7) {
+		results();
+	}
+}
+var oneens = function(event){
+	choices.push("contra");
+	console.log(choices);
+	title.innerHTML = subjects[nr].title;
+	subject.innerHTML = subjects[nr].statement;
+	    var positions = subjects[nr].parties;
+    for (i = 0; i < positions.length; i++) { 
+   		if (positions[i].position == "contra") {
+   			punten[i].points++
+   			console.log(punten);	
+   		}
+	}	
+	nr++;
+	if (nr == 7) {
+		results();
+	}
+}
 var prev = function(event){
 	nr--;
 	choices.pop();
-	title.innerHTML = subjects[nr].title;
-	subject.innerHTML = subjects[nr].statement;
 	console.log(choices);
-		if (nr == 7) {
-		title.innerHTML = "Eind resultaat";
-		subject.innerHTML = "dit is het eind resultaat."
-	}
-}
-
-var approve = function(event){
-	nr++;
-	choices.push("pro");
 	title.innerHTML = subjects[nr].title;
 	subject.innerHTML = subjects[nr].statement;
-	console.log(choices);
-		if (nr == 7) {
-		title.innerHTML = "Eind resultaat";
-		subject.innerHTML = "dit is het eind resultaat."
-	}
+	parties.innerHTML = "";
+	document.getElementById("main").style.height = "400px";
+	document.getElementById("e").style.display = "visible";
+	document.getElementById("o").style.display = "visible";
+	document.getElementById("g").style.display = "visible";
+	document.getElementById("next").style.display = "visible";
 }
-
-var nothing = function(event){
-	nr++;
-	choices.push("ambivalent");
-	title.innerHTML = subjects[nr].title;
-	subject.innerHTML = subjects[nr].statement;
-	console.log(choices);	
-		if (nr == 7) {	
-			title.innerHTML = "Eind resultaat";
-			subject.innerHTML = "dit is het eind resultaat."
-	}
+function results(){
+	title.innerHTML = "Resultaten";
+	subject.innerHTML = "";
+	party = "";
+for (i = 0; i < 20; i++) { 
+    party += punten[i].name + "-" + punten[i].points + "<br>";
 }
-
-var disapprove = function(event){
-	nr++;
-	choices.push("contra");
-	title.innerHTML = subjects[nr].title;
-	subject.innerHTML = subjects[nr].statement;
-	console.log(choices);
-		if (nr == 7) {
-			title.innerHTML = "Eind resultaat";
-			subject.innerHTML = "dit is het eind resultaat.";
-		}
+	parties.innerHTML = party;
+	console.log(party);
+	document.getElementById("e").style.display = "none";
+	document.getElementById("o").style.display = "none";
+	document.getElementById("g").style.display = "none";
+	document.getElementById("next").style.display = "none";
+	document.getElementById("next").style.display = "none";
+	document.getElementById("back").style.display = "none";
+	document.getElementById("main").style.height = "700px";
 }
-
-function showResults() {
-	choices.forEach(function(choice, index) {
-		console.log(subjects[index]);
-		subjects[index].parties.forEach(function(party, index) {
-			results.forEach(function(result) {
-				if (party.name == result.name) {
-					console.log(party);
-					console.log(party.position);
-					if (party.position == choice) {
-						console.log(party.position);
-						console.log(choice);
-						result.point++;
-					}
-				}
-			});
-		});
-	});
-
-	console.log(results);
-}
-
-
-// var endResult = function(event){
-// 	if (nr == 6){
-// 		subjects.forEach(function(entry){
-// 			console.log(entry);
-// 		});
-// 	}	
-// }
 
 skip.onclick = next;
 back.onclick = prev;
-eens.onclick = approve;
-none.onclick = nothing;
-oneens.onclick = disapprove;
+e.onclick = eens;
+g.onclick = geen;
+o.onclick = oneens;
